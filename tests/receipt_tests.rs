@@ -46,3 +46,16 @@ fn tampered_receipt_fails_verification() {
 
     assert!(verify_receipt(&signed).is_err());
 }
+
+#[test]
+fn receipt_with_wrong_public_key_fails_verification() {
+    let (signing_key, _) = generate_keypair();
+    let (_, other_verifying_key) = generate_keypair();
+
+    let receipt = sample_receipt();
+    let mut signed = sign_receipt(receipt, &signing_key).unwrap();
+
+    signed.public_key_hex = hex::encode(other_verifying_key.to_bytes());
+
+    assert!(verify_receipt(&signed).is_err());
+}

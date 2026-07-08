@@ -1,0 +1,21 @@
+[package]
+name = "agentic-receipts"
+version = "0.1.0"
+edition = "2021"
+description = "Signed, tamper-evident execution receipts for AI agents, tool calls, GPU workloads, and distributed jobs."
+license = "MIT"
+repository = "https://github.com/Orlych1kk4/agentic-receipts"
+readme = "README.md"
+keywords = ["ai", "agents", "audit", "receipts", "security"]
+categories = ["cryptography", "authentication", "development-tools"]
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+sha2 = "0.10"
+hex = "0.4"
+ed25519-dalek = { version = "2", features = ["rand_core"] }
+rand_core = { version = "0.6", features = ["getrandom"] }
+thiserror = "1"
+chrono = { version = "0.4", features = ["serde"] }
+uuid = { version = "1", features = ["v4", "serde"] }

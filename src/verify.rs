@@ -19,8 +19,7 @@ pub fn verify_receipt(receipt: &AgenticReceipt) -> Result<(), ReceiptError> {
         .as_ref()
         .ok_or(ReceiptError::MissingSignature)?;
 
-    let signature_bytes =
-        hex::decode(signature_hex).map_err(|_| ReceiptError::InvalidSignature)?;
+    let signature_bytes = hex::decode(signature_hex).map_err(|_| ReceiptError::InvalidSignature)?;
 
     let signature_array: [u8; 64] = signature_bytes
         .try_into()

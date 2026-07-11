@@ -1,7 +1,10 @@
 # agentic-receipts
 
+[![Crates.io](https://img.shields.io/crates/v/agentic-receipts.svg)](https://crates.io/crates/agentic-receipts)
+[![Documentation](https://docs.rs/agentic-receipts/badge.svg)](https://docs.rs/agentic-receipts)
+[![License](https://img.shields.io/crates/l/agentic-receipts.svg)](https://crates.io/crates/agentic-receipts)
+
 Cryptographically signed, tamper-evident execution receipts for AI agents,
-tool calls, GPU workloads, and distributed jobs.
 
 `agentic-receipts` creates verifiable records of agent and workload execution.
 Each receipt contains hashes of the input and output, execution metadata, an
@@ -69,11 +72,9 @@ and signatures are generated at runtime.
 
 ## Installation
 
-Until the crate is published to crates.io:
-
 ```toml
 [dependencies]
-agentic-receipts = { git = "https://github.com/0rlych1kk4/agentic-receipts" }
+agentic-receipts = "0.1"
 ```
 
 ## Example

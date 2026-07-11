@@ -6,6 +6,7 @@
 
 Cryptographically signed, tamper-evident execution receipts for AI agents,
 tool calls, GPU workloads, and distributed jobs.
+
 `agentic-receipts` creates verifiable records of agent and workload execution.
 Each receipt contains hashes of the input and output, execution metadata, an
 Ed25519 public key, and a digital signature.

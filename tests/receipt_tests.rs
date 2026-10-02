@@ -129,3 +129,17 @@ fn receipt_with_malformed_signature_hex_fails_verification() {
         Err(agentic_receipts::ReceiptError::InvalidSignature)
     ));
 }
+
+#[test]
+fn receipt_with_short_signature_fails_verification() {
+    let (signing_key, _) = generate_keypair();
+    let receipt = sample_receipt();
+
+    let mut signed = sign_receipt(receipt, &signing_key).unwrap();
+    signed.signature_hex = Some(hex::encode([0u8; 63]));
+
+    assert!(matches!(
+        verify_receipt(&signed),
+        Err(agentic_receipts::ReceiptError::InvalidSignature)
+    ));
+}

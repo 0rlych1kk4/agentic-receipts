@@ -59,3 +59,17 @@ fn receipt_with_wrong_public_key_fails_verification() {
 
     assert!(verify_receipt(&signed).is_err());
 }
+
+#[test]
+fn receipt_without_signature_fails_verification() {
+    let (signing_key, _) = generate_keypair();
+    let receipt = sample_receipt();
+
+    let mut signed = sign_receipt(receipt, &signing_key).unwrap();
+    signed.signature_hex = None;
+
+    assert!(matches!(
+        verify_receipt(&signed),
+        Err(agentic_receipts::ReceiptError::MissingSignature)
+    ));
+}

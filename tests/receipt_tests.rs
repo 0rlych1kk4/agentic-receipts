@@ -168,3 +168,14 @@ fn tampered_agent_id_fails_verification() {
 
     assert!(verify_receipt(&signed).is_err());
 }
+
+#[test]
+fn tampered_task_id_fails_verification() {
+    let (signing_key, _) = generate_keypair();
+    let receipt = sample_receipt();
+
+    let mut signed = sign_receipt(receipt, &signing_key).unwrap();
+    signed.task_id = "tampered-task".to_string();
+
+    assert!(verify_receipt(&signed).is_err());
+}

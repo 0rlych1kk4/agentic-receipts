@@ -201,3 +201,14 @@ fn tampered_action_type_fails_verification() {
 
     assert!(verify_receipt(&signed).is_err());
 }
+
+#[test]
+fn tampered_tool_name_fails_verification() {
+    let (signing_key, _) = generate_keypair();
+    let receipt = sample_receipt();
+
+    let mut signed = sign_receipt(receipt, &signing_key).unwrap();
+    signed.tool_name = Some("tampered-tool".to_string());
+
+    assert!(verify_receipt(&signed).is_err());
+}

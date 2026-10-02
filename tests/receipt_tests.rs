@@ -157,3 +157,14 @@ fn receipt_with_long_signature_fails_verification() {
         Err(agentic_receipts::ReceiptError::InvalidSignature)
     ));
 }
+
+#[test]
+fn tampered_agent_id_fails_verification() {
+    let (signing_key, _) = generate_keypair();
+    let receipt = sample_receipt();
+
+    let mut signed = sign_receipt(receipt, &signing_key).unwrap();
+    signed.agent_id = "attacker-agent".to_string();
+
+    assert!(verify_receipt(&signed).is_err());
+}

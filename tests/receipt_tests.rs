@@ -101,3 +101,17 @@ fn receipt_with_short_public_key_fails_verification() {
         Err(agentic_receipts::ReceiptError::InvalidPublicKey)
     ));
 }
+
+#[test]
+fn receipt_with_long_public_key_fails_verification() {
+    let (signing_key, _) = generate_keypair();
+    let receipt = sample_receipt();
+
+    let mut signed = sign_receipt(receipt, &signing_key).unwrap();
+    signed.public_key_hex = hex::encode([0u8; 33]);
+
+    assert!(matches!(
+        verify_receipt(&signed),
+        Err(agentic_receipts::ReceiptError::InvalidPublicKey)
+    ));
+}

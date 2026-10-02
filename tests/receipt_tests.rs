@@ -115,3 +115,17 @@ fn receipt_with_long_public_key_fails_verification() {
         Err(agentic_receipts::ReceiptError::InvalidPublicKey)
     ));
 }
+
+#[test]
+fn receipt_with_malformed_signature_hex_fails_verification() {
+    let (signing_key, _) = generate_keypair();
+    let receipt = sample_receipt();
+
+    let mut signed = sign_receipt(receipt, &signing_key).unwrap();
+    signed.signature_hex = Some("not-valid-hex".to_string());
+
+    assert!(matches!(
+        verify_receipt(&signed),
+        Err(agentic_receipts::ReceiptError::InvalidSignature)
+    ));
+}

@@ -190,3 +190,14 @@ fn tampered_input_hash_fails_verification() {
 
     assert!(verify_receipt(&signed).is_err());
 }
+
+#[test]
+fn tampered_action_type_fails_verification() {
+    let (signing_key, _) = generate_keypair();
+    let receipt = sample_receipt();
+
+    let mut signed = sign_receipt(receipt, &signing_key).unwrap();
+    signed.action_type = ActionType::ApiCall;
+
+    assert!(verify_receipt(&signed).is_err());
+}

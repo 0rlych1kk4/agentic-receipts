@@ -245,3 +245,14 @@ fn tampered_completed_at_fails_verification() {
 
     assert!(verify_receipt(&signed).is_err());
 }
+
+#[test]
+fn tampered_latency_fails_verification() {
+    let (signing_key, _) = generate_keypair();
+    let receipt = sample_receipt();
+
+    let mut signed = sign_receipt(receipt, &signing_key).unwrap();
+    signed.latency_ms += 1;
+
+    assert!(verify_receipt(&signed).is_err());
+}

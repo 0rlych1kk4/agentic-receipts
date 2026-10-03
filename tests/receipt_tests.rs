@@ -234,3 +234,14 @@ fn tampered_started_at_fails_verification() {
 
     assert!(verify_receipt(&signed).is_err());
 }
+
+#[test]
+fn tampered_completed_at_fails_verification() {
+    let (signing_key, _) = generate_keypair();
+    let receipt = sample_receipt();
+
+    let mut signed = sign_receipt(receipt, &signing_key).unwrap();
+    signed.completed_at += chrono::Duration::seconds(1);
+
+    assert!(verify_receipt(&signed).is_err());
+}
